@@ -65,15 +65,14 @@ extension PlayGame {
     
 
     func getUerIntput() -> Int {
-        print("0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요")
         if let userInput = readLine(), let userInputNumber = Int(userInput) {
             guard userInputNumber.isFit() else {
-                print("\n조건에 맞지 않는 입력입니다.")
+                print("\n>>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요\n>>숫자는 0으로 시작할 수 없습니다.")
                 return -202
             }
             return userInputNumber
         } else {
-            print("숫자가 아닌 다른 문자를 입력하셨거나, 입력이 없습니다.")
+            print(">>숫자가 아닌 다른 문자를 입력하셨거나, 입력이 없습니다.")
             return -201
         }
     }
@@ -99,4 +98,3 @@ extension PlayGame {
         return (strike, ball)
     }
 }
-
