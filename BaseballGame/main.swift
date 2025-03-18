@@ -16,18 +16,18 @@ func startGame() {
                 """)
         while !isSelected {
             if let userInput = readLine(), let userInputNumber = Int(userInput) {
-                switch userInputNumber {
+                switch userInputNumber { //사용자 입력에 따라 다른 동작 실행
                 case 1:
-                    let select = PlayGame()
-                    select.excute()
+                    let select = PlayGame() // 야구게임 실행을 위한 인스턴스 생성
+                    select.excute() // 야구게임 실행
                     isSelected = true
                 case 2:
-                    History.showHistory()
+                    History.showHistory() // 야구게임 기록을 보기위한 History class static 메서드 실행
                     isSelected = true
                 case 3:
                     print(">>숫자 야구 게임을 종료합니다.")
-                    isSelected = true
-                    exitGame = true
+                    isSelected = true //압력에 따른 동작 반복문 종료
+                    exitGame = true // 전체 반복문 종료
                 default:
                     print("""
                             >>잘못된 입력입니다.
