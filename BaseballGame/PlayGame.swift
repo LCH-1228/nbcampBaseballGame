@@ -8,34 +8,6 @@ import Foundation
 
 class Game {
     
-    func select() {
-        var isSelected = false
-        print("""
-                환영합니다! 원하시는 번호를 입력해주세요
-                1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기
-                """)
-        while !isSelected {
-            if let userInput = readLine(), let userInputNumber = Int(userInput) {
-                switch userInputNumber {
-                case 1:
-                    let select = start()
-                    isSelected = true
-                case 2:
-                    let select = showHistory()
-                    isSelected = true
-                case 3:
-                    print("종료합니다.")
-                    isSelected = true
-                default:
-                    print("잘못된 입력입니다.")
-                }
-            }
-        }
-    }
-    func showHistory() {
-        print("구현전임")
-    }
-    
     func start() {
         var isPlaying = true
         
