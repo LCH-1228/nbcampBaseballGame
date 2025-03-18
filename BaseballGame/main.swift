@@ -29,7 +29,12 @@ func startGame() {
                     isSelected = true
                     exitGame = true
                 default:
-                    print(">>잘못된 입력입니다.")
+                    print("""
+                            >>잘못된 입력입니다.
+
+                            >>원하시는 번호를 입력해주세요
+                            >>1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기
+                            """)
                 }
             }
         }

@@ -59,7 +59,6 @@ extension PlayGame {
                 return -101
             }
         }
-        print(Int(answer))
         return Int(answer)
     }
     
