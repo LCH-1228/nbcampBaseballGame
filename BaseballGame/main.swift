@@ -6,4 +6,4 @@
 //
 
 let game = Game()
-game.start()
+game.select()
