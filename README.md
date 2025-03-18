@@ -39,7 +39,7 @@
 
 ## 4. Project Structure (프로젝트 구조)
 ```plaintext
-nbcBaseballGame/
+nbcampBaseballGame/
 ├── BaseballGame
 │   ├── History.swift
 │   ├── IntExtension.swift
