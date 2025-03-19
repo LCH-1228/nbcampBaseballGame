@@ -13,25 +13,34 @@ class PlayGame {
         var isPlaying = true
         var trycount = 1 //게임 기록 확인을 위한 trycount
         let answer = makeRandomAnswer()
+        var history = "\n\n<기록>\n정답: \(answer)\n"
         while isPlaying {
             let userInput = getUerIntput()
+            if userInput > 0 {
+                history += "\(userInput)\n"
+            }
             let strikeAndBallCount = determineStrikeAndBall(answer, userInput)
             switch strikeAndBallCount {
             case(0, 1...3): //범위연산자로 case 지정
-                print("\n>>\(strikeAndBallCount.1)볼!!")
+                print(">>\(strikeAndBallCount.1)볼!!\n")
+                history += ">>\(strikeAndBallCount.1)볼!!\n"
                 trycount += 1
             case(1...2, 0):
-                print("\n>>\(strikeAndBallCount.0)스트라이크!!")
+                print(">>\(strikeAndBallCount.0)스트라이크!!\n")
+                history += ">>\(strikeAndBallCount.0)스트라이크!!\n"
                 trycount += 1
             case(1...2, 1...2):
-                print("\n>>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!")
+                print(">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n")
+                history += ">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n"
                 trycount += 1
             case(3, 0):
                 print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
-                History.setHistory(trycount)
+                History.setHistory(history)
+                History.setCount(trycount)
                 isPlaying = false
             case(0,0):
-                print("\n>>Nothing")
+                print(">>Nothing\n")
+                history += ">>Nothing\n"
                 trycount += 1
             default:
                 isPlaying = true

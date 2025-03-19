@@ -12,7 +12,7 @@ func startGame() {
         var isSelected = false
         print("""
                 >>환영합니다! 원하시는 번호를 입력해주세요
-                >>1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기
+                >>1. 게임 시작하기 2. 게임 기록 보기 3. 설명보기 4. 종료하기
                 """)
         while !isSelected {
             if let userInput = readLine(), let userInputNumber = Int(userInput) {
@@ -25,6 +25,23 @@ func startGame() {
                     History.showHistory() // 야구게임 기록을 보기위한 History class static 메서드 실행
                     isSelected = true
                 case 3:
+                    print("""
+                            [숫자야구게임]
+                            랜덤한 숫자 3자리를 맞춰보세요
+                            
+                            [Rule]
+                            사용자는 0~9까지 세자리 숫자를 입력할 수 있습니다.
+                            숫자는 중복될수 없으며, 맨앞의 숫자는 0이 될수 없습니다.
+                            
+                            랜덤한 숫자와 입력한 숫자의 자리가 같으면 Strike
+                            랜덤한 숫자와 입력한 숫자의 자리가 다르면 ball
+                            랜덤한 숫자에 입력한 숫자가 포함되어 있지 않다면 Nothing
+                            
+                            랜덤한 숫자를 맞춰보세요.
+                            
+                            """)
+                    isSelected = true
+                case 4:
                     print(">>숫자 야구 게임을 종료합니다.")
                     isSelected = true //압력에 따른 동작 반복문 종료
                     exitGame = true // 전체 반복문 종료
@@ -33,7 +50,7 @@ func startGame() {
                             >>잘못된 입력입니다.
 
                             >>원하시는 번호를 입력해주세요
-                            >>1. 게임 시작하기 2. 게임 기록 보기 3. 종료하기
+                            >>1. 게임 시작하기 2. 게임 기록 보기 3. 설명보기 4. 종료하기
                             """)
                 }
             }
