@@ -4,6 +4,7 @@
 //
 //  Created by Chanho Lee on 3/20/25.
 //
+
 class CustomError {
     
     enum PlayGameError: Error {

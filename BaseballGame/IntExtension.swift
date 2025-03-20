@@ -6,6 +6,8 @@
 //
 
 extension Int {
+    
+    //PlayGame에서 사용자 입력이 규칙에 맞는지 판단하는 메서드
     func isFit() -> Bool {
         let array = String(self).map{$0} //Int를 고차함수 map을 사용하여 array로 변환
         let isPositive = self > 0 ? true : false // Int가 양수인지 판단

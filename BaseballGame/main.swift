@@ -6,10 +6,11 @@
 //
 import Foundation
 
+//게임 시작을 위한 함수
 func startGame() {
     var exitGame: Bool = false
     let history = History()
-    let game = PlayGame(historyIntence: history) // 야구게임 실행을 위한 인스턴스 생성
+    let game = PlayGame(historyIntence: history) // 야구게임 실행을 위한 인스턴스 생성. 동인한 인스턴스 유지를 위해서 의존성 주입을 통하여 History class를 참조하여 사용
     while !exitGame {
         var isSelected = false
         print("""
@@ -23,7 +24,7 @@ func startGame() {
                     game.excute() // 야구게임 실행
                     isSelected = true
                 case 2:
-                    history.excute()
+                    history.excute() //게임 기록 보기 실행
                     isSelected = true
                 case 3:
                     print("""
@@ -45,7 +46,7 @@ func startGame() {
                     isSelected = true
                 case 4:
                     print(">>숫자 야구 게임을 종료합니다.")
-                    isSelected = true //압력에 따른 동작 반복문 종료
+                    isSelected = true //입력에 따른 동작 반복문 종료
                     exitGame = true // 전체 반복문 종료
                 default:
                     print("""

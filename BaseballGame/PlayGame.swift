@@ -8,24 +8,27 @@ import Foundation
 
 class PlayGame {
     
-    var historyIntence: History
+    var historyIntence: History //의존성 주입을 받기 위한 변수선언과 init
     
     init(historyIntence: History) {
         self.historyIntence = historyIntence
     }
     
+    //PlayGame의 실행 메서드
     func excute() {
         print("\n<게임을 시작합니다.>\n>>숫자를 입력하세요")
         var isPlaying = true
+        //여기서 do를 지정하면 에러 처리시 while루프를 빠져나가 catch로 넘어가기에 try! 사용
+        //try? 사용으로 nil 반환시에 대한 예외처리 필요.
         let answer = try! makeRandomAnswer()
-        print("테스트를 위한 정답 표시 : \(answer)") // 테스트를 위한 정답 보기
+        print("테스트를 위한 정답 표시 : \(answer)") // 테스트를 위한 정답 표시
         historyIntence.addHistory(type: .answer, value1: answer)
         while isPlaying {
             do {
                 let userInput = try getUerIntput()
                 historyIntence.addHistory(type: .userInput, value1: userInput)
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
-                switch strikeAndBallCount {
+                switch strikeAndBallCount { //strikeAndBallCount 반환값은 튜플 (strike: Int, ball: Int)
                 case(0, 1...3): //범위연산자로 case 지정
                     printMessage(type: .onlyBall, value1: strikeAndBallCount.1)
                     historyIntence.addHistory(type: .onlyBall, value1: strikeAndBallCount.1)
@@ -67,7 +70,8 @@ class PlayGame {
     }
 }
 
-extension PlayGame { // 코드 가독성을 위해 extension으로 분리
+// 코드 가독성을 위해 extension으로 분리
+extension PlayGame {
     func makeRandomAnswer() throws -> Int {
         var answerArray: [Int] = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9] //숫자 선택을 위한 배열
         var answer: Float = 0 // for문에서 pow 연산을 위해 Float로 지정
@@ -83,26 +87,27 @@ extension PlayGame { // 코드 가독성을 위해 extension으로 분리
                     answer += pow(10.0, Float(i)) * Float(pickedNumber) //제곱연산인 pow를 이용하여 10^0, 10^1, 10^2를 자리값으로 사용하고 각각 선택된 숫자를 곱해서 3자리수 생성
                 }
             } else {
-                throw CustomError.PlayGameError.randomNumberGenerationError //에러코드 기능 구현을 위한 음수 반환
+                throw CustomError.PlayGameError.randomNumberGenerationError // 랜덤숫자 생성 오류시 예외처리
             }
         }
         return Int(answer)
     }
     
-
+    //사용자 입력 요청 메서드
     func getUerIntput() throws -> Int {
         if let userInput = readLine(), let userInputNumber = Int(userInput) {
             guard userInputNumber.isFit() else {
-                throw CustomError.PlayGameError.inputValueNotMatchRule //추후 에러코드 기능 구현을 위한 음수 반환
+                throw CustomError.PlayGameError.inputValueNotMatchRule //사용자 입력이 규칙에 맞지 않을때 예외 처리
             }
             return userInputNumber
         } else {
-            throw CustomError.PlayGameError.invaildInput //추후 에러코드 기능 구현을 위한 음수 반환
+            throw CustomError.PlayGameError.invaildInput //사용자 입력이 올바르지 않을때 예외 처리
         }
     }
     
+    //스트라이크 볼 판단 메서드
     func determineStrikeAndBall(_ answer: Int, _ userInput: Int) throws -> (strike: Int, ball: Int) {
-        if userInput < 0{ //추후 반환값이 음수일 경우 에러코드 기능 구현을 위한 조건문
+        if userInput < 0 { //입력값이 음수라면 잘못된 입력으로 예외처리
             throw CustomError.PlayGameError.determineStrikeAndBallInputError
         }
         var strike = 0
@@ -122,6 +127,7 @@ extension PlayGame { // 코드 가독성을 위해 extension으로 분리
         return (strike, ball)
     }
     
+    //메세지 출력을 위한 메서드
     func printMessage(type: InputOutValue, value1: Int = 0, value2: Int = 0) {
         switch type {
         case .answer:
