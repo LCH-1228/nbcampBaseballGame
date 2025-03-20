@@ -15,29 +15,29 @@ class PlayGame {
             let answer = try makeRandomAnswer()
             print(answer) // 테스트를 위한 정답 보기
             let historyIntence = History.instence
-            historyIntence.printAndHistory(type: "answer", value1: answer)
+            historyIntence.printAndHistory(type: .answer, value1: answer)
             while isPlaying {
                 let userInput = try getUerIntput()
-                historyIntence.printAndHistory(type: "userInput", value1: userInput)
+                historyIntence.printAndHistory(type: .userInput, value1: userInput)
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
                 switch strikeAndBallCount {
                 case(0, 1...3): //범위연산자로 case 지정
-                    historyIntence.printAndHistory(type: "onlyBall", value1: strikeAndBallCount.1)
+                    historyIntence.printAndHistory(type: .onlyBall, value1: strikeAndBallCount.1)
                     historyIntence.addCount()
                 case(1...2, 0):
-                    historyIntence.printAndHistory(type: "onlyStrike", value1: strikeAndBallCount.0)
+                    historyIntence.printAndHistory(type: .onlyStrike, value1: strikeAndBallCount.0)
                     historyIntence.addCount()
                 case(1...2, 1...2):
-                    historyIntence.printAndHistory(type: "strikeAndBall", value1: strikeAndBallCount.0, value2: strikeAndBallCount.1)
+                    historyIntence.printAndHistory(type: .strikeAndBall, value1: strikeAndBallCount.0, value2: strikeAndBallCount.1)
                     historyIntence.addCount()
                 case(3, 0):
                     print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
-                    historyIntence.printAndHistory(type: "goal")
+                    historyIntence.printAndHistory(type: .threeStike)
                     historyIntence.setHistory()
                     historyIntence.setCount()
                     isPlaying = false
                 case(0,0):
-                    historyIntence.printAndHistory(type: "nothing")
+                    historyIntence.printAndHistory(type: .nothing)
                     historyIntence.addCount()
                 default:
                     isPlaying = true
