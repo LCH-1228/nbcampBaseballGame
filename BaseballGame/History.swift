@@ -7,13 +7,52 @@
 
 class History {
     
-    private static var countData: [Int] = []
-    private static var historyData: [String] = []
+    static let instence = History()
     
-    static func showHistory() {
+    private var countData: [Int] = []
+    private var historyData: [String] = []
+    var isSeeing = true
+    
+    private init() {}
+    
+    func excute() {
+        var isSeeing = true
+        while isSeeing {
+            do {
+                try showHistory()
+                let userInput = try getUserInput()
+                if userInput == 0 {
+                    print("\n>>처음으로 돌아갑니다.\n")
+                    isSeeing = false
+                }
+                showDetailHistory(index: userInput)
+            } catch(let error) {
+                switch error as! CustomError.HistoryError {
+                case .historyIsEmpty:
+                    print("\n>> 게임 이력이 없습니다.\n")
+                    isSeeing = false
+                case .invaildInput:
+                    print("\n허용되지 않는 입력입니다.")
+                }
+            }
+        }
+    }
+}
+
+extension History {
+    
+    func getUserInput() throws -> Int {
+        print("\n>>상세보기를 원하시면 게임 번호를 입력해주세요\n>>뒤로가기를 원하시면 0을 입력해주세요.")
+        if let userInput = readLine(), let inputNumber = Int(userInput) {
+            return inputNumber
+        } else {
+            throw CustomError.HistoryError.invaildInput
+        }
+    }
+    
+    func showHistory() throws {
         if countData.isEmpty { //배열이 비어있을경우 예외처리
-            print("\n>> 게임 이력이 없습니다.\n")
-            return
+            throw CustomError.HistoryError.historyIsEmpty
         } else {
             if countData.count == 1 { //배열이 1개만 있을경우 동작
                 print("\n>>1번 게임 : 시도횟수 - \(countData[0])\n")
@@ -22,33 +61,26 @@ class History {
                 for round in 0...countData.count - 1 {
                     print(">>\(round + 1)번 게임 : 시도횟수 - \(countData[round])")
                 }
-                print("")
             }
-            showDetailHistory()
         }
     }
     
-    static func showDetailHistory() {
-        print(">>상세보기를 원하시면 게임 번호를 입력해주세요\n뒤로가기를 원하시면 0을 입력해주세요.")
-        if let userInput = readLine(), let inputNumber = Int(userInput) {
-            if inputNumber == 0 {
-                return
-            } else if inputNumber >= 1 && inputNumber <= historyData.count {
-                print(historyData[inputNumber - 1])
-            } else {
-                print("\n>>해당 게임번호가 없습니다.")
-            }
+    func showDetailHistory(index: Int) {
+        if index == 0 {
+            isSeeing = false
+        } else if index >= 1 && index <= historyData.count {
+            print("\n\n<\(index)번 게임 기록> \(historyData[index - 1])")
         } else {
-            print("\n허용되지 않는 입력입니다.")
+            print("\n>>해당 게임번호가 없습니다.")
         }
-        showHistory()
     }
         
-    static func setCount(_ value: Int) {
+    func setCount(_ value: Int) {
         countData.append(value)
     }
     
-    static func setHistory(_ history: String) {
+    func setHistory(_ history: String) {
         historyData.append(history)
     }
+    
 }

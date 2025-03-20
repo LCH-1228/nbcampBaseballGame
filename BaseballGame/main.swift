@@ -8,6 +8,8 @@ import Foundation
 
 func startGame() {
     var exitGame: Bool = false
+    let game = PlayGame() // 야구게임 실행을 위한 인스턴스 생성
+    let history = History.instence// 야구게임 기록을 보기위한 인스턴스 생성
     while !exitGame {
         var isSelected = false
         print("""
@@ -18,14 +20,14 @@ func startGame() {
             if let userInput = readLine(), let userInputNumber = Int(userInput) {
                 switch userInputNumber { //사용자 입력에 따라 다른 동작 실행
                 case 1:
-                    let select = PlayGame() // 야구게임 실행을 위한 인스턴스 생성
-                    select.excute() // 야구게임 실행
+                    game.excute() // 야구게임 실행
                     isSelected = true
                 case 2:
-                    History.showHistory() // 야구게임 기록을 보기위한 History class static 메서드 실행
+                    history.excute()
                     isSelected = true
                 case 3:
                     print("""
+                            
                             [숫자야구게임]
                             랜덤한 숫자 3자리를 맞춰보세요
                             
@@ -48,7 +50,7 @@ func startGame() {
                 default:
                     print("""
                             >>잘못된 입력입니다.
-
+                            
                             >>원하시는 번호를 입력해주세요
                             >>1. 게임 시작하기 2. 게임 기록 보기 3. 설명보기 4. 종료하기
                             """)

@@ -9,50 +9,64 @@ import Foundation
 class PlayGame {
     
     func excute() {
-        print("\n>>0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요")
+        print("\n>><게임을 시작합니다.>")
         var isPlaying = true
         var trycount = 1 //게임 기록 확인을 위한 trycount
-        let answer = makeRandomAnswer()
-        print(answer)
-        var history = "\n\n<기록>\n정답: \(answer)\n"
-        while isPlaying {
-            let userInput = getUerIntput()
-            if userInput > 0 {
-                history += "\(userInput)\n"
+        do {
+            let answer = try makeRandomAnswer()
+            print(answer)
+            let historyIntence = History.instence
+            var history = "\n정답: \(answer)\n"
+            while isPlaying {
+                let userInput = try getUerIntput()
+                if userInput > 0 {
+                    history += "\(userInput)\n"
+                }
+                let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
+                switch strikeAndBallCount {
+                case(0, 1...3): //범위연산자로 case 지정
+                    print(">>\(strikeAndBallCount.1)볼!!\n")
+                    history += ">>\(strikeAndBallCount.1)볼!!\n"
+                    trycount += 1
+                case(1...2, 0):
+                    print(">>\(strikeAndBallCount.0)스트라이크!!\n")
+                    history += ">>\(strikeAndBallCount.0)스트라이크!!\n"
+                    trycount += 1
+                case(1...2, 1...2):
+                    print(">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n")
+                    history += ">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n"
+                    trycount += 1
+                case(3, 0):
+                    print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
+                    history += ">>3스트라이크!"
+                    historyIntence.setHistory(history)
+                    historyIntence.setCount(trycount)
+                    isPlaying = false
+                case(0,0):
+                    print(">>Nothing\n")
+                    history += ">>Nothing\n"
+                    trycount += 1
+                default:
+                    isPlaying = true
+                }
             }
-            let strikeAndBallCount = determineStrikeAndBall(answer, userInput)
-            switch strikeAndBallCount {
-            case(0, 1...3): //범위연산자로 case 지정
-                print(">>\(strikeAndBallCount.1)볼!!\n")
-                history += ">>\(strikeAndBallCount.1)볼!!\n"
-                trycount += 1
-            case(1...2, 0):
-                print(">>\(strikeAndBallCount.0)스트라이크!!\n")
-                history += ">>\(strikeAndBallCount.0)스트라이크!!\n"
-                trycount += 1
-            case(1...2, 1...2):
-                print(">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n")
-                history += ">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n"
-                trycount += 1
-            case(3, 0):
-                print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
-                history += ">>3스트라이크!"
-                History.setHistory(history)
-                History.setCount(trycount)
-                isPlaying = false
-            case(0,0):
-                print(">>Nothing\n")
-                history += ">>Nothing\n"
-                trycount += 1
-            default:
-                isPlaying = true
+        } catch(let error) {
+            switch error as! CustomError.PlayGameError {
+            case .randomNumberGenerationError:
+                print(">>랜덤숫자 생성에 실패했습니다.")
+            case .invaildInput:
+                print(">>숫자가 아닌 다른 문자를 입력하셨거나, 입력이 없습니다.")
+            case .inputValueNotMatchRule:
+                print("\n>>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요\n>>숫자는 0으로 시작할 수 없습니다.\n")
+            case .determineStrikeAndBallInputError:
+                print("판단실패")
             }
         }
     }
 }
 
 extension PlayGame { // 코드 가독성을 위해 extension으로 분리
-    func makeRandomAnswer() -> Int {
+    func makeRandomAnswer() throws -> Int {
         var answerArray: [Int] = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9] //숫자 선택을 위한 배열
         var answer: Float = 0 // for문에서 pow 연산을 위해 Float로 지정
         for i in 0...2 {
@@ -67,29 +81,27 @@ extension PlayGame { // 코드 가독성을 위해 extension으로 분리
                     answer += pow(10.0, Float(i)) * Float(pickedNumber) //제곱연산인 pow를 이용하여 10^0, 10^1, 10^2를 자리값으로 사용하고 각각 선택된 숫자를 곱해서 3자리수 생성
                 }
             } else {
-                return -101 //에러코드 기능 구현을 위한 음수 반환
+                throw CustomError.PlayGameError.randomNumberGenerationError //에러코드 기능 구현을 위한 음수 반환
             }
         }
         return Int(answer)
     }
     
 
-    func getUerIntput() -> Int {
+    func getUerIntput() throws -> Int {
         if let userInput = readLine(), let userInputNumber = Int(userInput) {
             guard userInputNumber.isFit() else {
-                print("\n>>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요\n>>숫자는 0으로 시작할 수 없습니다.")
-                return -202 //추후 에러코드 기능 구현을 위한 음수 반환
+                throw CustomError.PlayGameError.inputValueNotMatchRule //추후 에러코드 기능 구현을 위한 음수 반환
             }
             return userInputNumber
         } else {
-            print(">>숫자가 아닌 다른 문자를 입력하셨거나, 입력이 없습니다.")
-            return -201 //추후 에러코드 기능 구현을 위한 음수 반환
+            throw CustomError.PlayGameError.invaildInput //추후 에러코드 기능 구현을 위한 음수 반환
         }
     }
     
-    func determineStrikeAndBall(_ answer: Int, _ userInput: Int) -> (strike: Int, ball: Int) {
+    func determineStrikeAndBall(_ answer: Int, _ userInput: Int) throws -> (strike: Int, ball: Int) {
         if userInput < 0{ //추후 반환값이 음수일 경우 에러코드 기능 구현을 위한 조건문
-            return (-1, -1) //추후 에러코드 기능 구현을 위한 음수 반환
+            throw CustomError.PlayGameError.determineStrikeAndBallInputError
         }
         var strike = 0
         let answerArray = String(answer).map {$0}
