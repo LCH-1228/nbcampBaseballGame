@@ -8,8 +8,8 @@ import Foundation
 
 func startGame() {
     var exitGame: Bool = false
-    let game = PlayGame() // 야구게임 실행을 위한 인스턴스 생성
-    let history = History.instence// 야구게임 기록을 보기위한 인스턴스 생성
+    let history = History()
+    let game = PlayGame(historyIntence: history) // 야구게임 실행을 위한 인스턴스 생성
     while !exitGame {
         var isSelected = false
         print("""

@@ -7,16 +7,12 @@
 
 class History {
     
-    static let instence = History()
-    
     private var countData: [Int] = []
     private var historyData: [String] = []
     private var trycount: Int = 1
     private var StrikAndBallHistory = ""
     var isSeeing = true
-    
-    private init() {}
-    
+        
     func excute() {
         var isSeeing = true
         while isSeeing {

@@ -8,12 +8,17 @@ import Foundation
 
 class PlayGame {
     
+    var historyIntence: History
+    
+    init(historyIntence: History) {
+        self.historyIntence = historyIntence
+    }
+    
     func excute() {
         print("\n<게임을 시작합니다.>\n>>숫자를 입력하세요")
         var isPlaying = true
         let answer = try! makeRandomAnswer()
         print("테스트를 위한 정답 표시 : \(answer)") // 테스트를 위한 정답 보기
-        let historyIntence = History.instence
         historyIntence.addHistory(type: .answer, value1: answer)
         while isPlaying {
             do {
