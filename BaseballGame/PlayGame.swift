@@ -13,6 +13,7 @@ class PlayGame {
         var isPlaying = true
         var trycount = 1 //게임 기록 확인을 위한 trycount
         let answer = makeRandomAnswer()
+        print(answer)
         var history = "\n\n<기록>\n정답: \(answer)\n"
         while isPlaying {
             let userInput = getUerIntput()
@@ -35,6 +36,7 @@ class PlayGame {
                 trycount += 1
             case(3, 0):
                 print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
+                history += ">>3스트라이크!"
                 History.setHistory(history)
                 History.setCount(trycount)
                 isPlaying = false
