@@ -5,7 +5,7 @@
 //  Created by Chanho Lee on 3/20/25.
 //
 
-enum JugementCase {
+enum InputOutValue {
     case answer
     case userInput
     case onlyStrike

@@ -82,7 +82,7 @@ extension History {
         trycount = 1
     }
     
-    func addHistory(type: JugementCase, value1: Int = 0, value2: Int = 0) {
+    func addHistory(type: InputOutValue, value1: Int = 0, value2: Int = 0) {
         switch type {
         case .answer:
             StrikAndBallHistory += "\n정답: \(value1)\n"

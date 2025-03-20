@@ -122,7 +122,7 @@ extension PlayGame { // 코드 가독성을 위해 extension으로 분리
         return (strike, ball)
     }
     
-    func printMessage(type: JugementCase, value1: Int = 0, value2: Int = 0) {
+    func printMessage(type: InputOutValue, value1: Int = 0, value2: Int = 0) {
         switch type {
         case .answer:
             print("\n정답: \(value1)\n")
