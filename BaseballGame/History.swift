@@ -11,6 +11,8 @@ class History {
     
     private var countData: [Int] = []
     private var historyData: [String] = []
+    private var trycount: Int = 1
+    private var StrikAndBallHistory = ""
     var isSeeing = true
     
     private init() {}
@@ -74,13 +76,44 @@ extension History {
             print("\n>>해당 게임번호가 없습니다.")
         }
     }
-        
-    func setCount(_ value: Int) {
-        countData.append(value)
+    
+    func addCount() {
+        trycount += 1
     }
     
-    func setHistory(_ history: String) {
-        historyData.append(history)
+    func setCount() {
+        countData.append(trycount)
+        trycount = 1
     }
     
+    func printAndHistory(type: String, value1: Int = 0, value2: Int = 0) {
+        switch type {
+        case "answer":
+            StrikAndBallHistory += "\n정답: \(value1)\n"
+        case "userInput":
+            StrikAndBallHistory += "\(value1)\n"
+        case "onlyStrike":
+            print(">>\(value1)스트라이크!!\n")
+            StrikAndBallHistory += ">>\(value1)스트라이크!!\n"
+        case "onlyBall":
+            print(">>\(value1)볼!!\n")
+            StrikAndBallHistory += ">>\(value1)볼!!\n"
+        case "strikeAndBall":
+            print(">>\(value1)스트라이크!! \(value2)볼!!\n")
+            StrikAndBallHistory += ">>\(value1)스트라이크!! \(value2)볼!!\n"
+        case "goal":
+            print(">>3스트라이크!\n")
+            StrikAndBallHistory += ">>3스트라이크!\n"
+        case "nothing":
+            print(">>Nothing\n")
+            StrikAndBallHistory += ">>Nothing\n"
+        default:
+            print("")
+        }
+    }
+    
+    func setHistory() {
+        historyData.append(StrikAndBallHistory)
+        StrikAndBallHistory = ""
+    }
 }

@@ -11,41 +11,34 @@ class PlayGame {
     func excute() {
         print("\n>><게임을 시작합니다.>")
         var isPlaying = true
-        var trycount = 1 //게임 기록 확인을 위한 trycount
         do {
             let answer = try makeRandomAnswer()
-            print(answer)
+            print(answer) // 테스트를 위한 정답 보기
             let historyIntence = History.instence
-            var history = "\n정답: \(answer)\n"
+            historyIntence.printAndHistory(type: "answer", value1: answer)
             while isPlaying {
                 let userInput = try getUerIntput()
-                if userInput > 0 {
-                    history += "\(userInput)\n"
-                }
+                historyIntence.printAndHistory(type: "userInput", value1: userInput)
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
                 switch strikeAndBallCount {
                 case(0, 1...3): //범위연산자로 case 지정
-                    print(">>\(strikeAndBallCount.1)볼!!\n")
-                    history += ">>\(strikeAndBallCount.1)볼!!\n"
-                    trycount += 1
+                    historyIntence.printAndHistory(type: "onlyBall", value1: strikeAndBallCount.1)
+                    historyIntence.addCount()
                 case(1...2, 0):
-                    print(">>\(strikeAndBallCount.0)스트라이크!!\n")
-                    history += ">>\(strikeAndBallCount.0)스트라이크!!\n"
-                    trycount += 1
+                    historyIntence.printAndHistory(type: "onlyStrike", value1: strikeAndBallCount.0)
+                    historyIntence.addCount()
                 case(1...2, 1...2):
-                    print(">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n")
-                    history += ">>\(strikeAndBallCount.0)스트라이크!! \(strikeAndBallCount.1)볼!!\n"
-                    trycount += 1
+                    historyIntence.printAndHistory(type: "strikeAndBall", value1: strikeAndBallCount.0, value2: strikeAndBallCount.1)
+                    historyIntence.addCount()
                 case(3, 0):
                     print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
-                    history += ">>3스트라이크!"
-                    historyIntence.setHistory(history)
-                    historyIntence.setCount(trycount)
+                    historyIntence.printAndHistory(type: "goal")
+                    historyIntence.setHistory()
+                    historyIntence.setCount()
                     isPlaying = false
                 case(0,0):
-                    print(">>Nothing\n")
-                    history += ">>Nothing\n"
-                    trycount += 1
+                    historyIntence.printAndHistory(type: "nothing")
+                    historyIntence.addCount()
                 default:
                     isPlaying = true
                 }
