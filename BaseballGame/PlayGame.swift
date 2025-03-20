@@ -112,4 +112,23 @@ extension PlayGame { // 코드 가독성을 위해 extension으로 분리
         ball -= strike
         return (strike, ball)
     }
+    
+    func printMessage(type: JugementCase, value1: Int = 0, value2: Int = 0) {
+        switch type {
+        case .answer:
+            print("\n정답: \(value1)\n")
+        case .userInput:
+            print("\(value1)\n")
+        case .onlyStrike:
+            print(">>\(value1)스트라이크!!\n")
+        case .onlyBall:
+            print(">>\(value1)볼!!\n")
+        case .strikeAndBall:
+            print(">>\(value1)스트라이크!! \(value2)볼!!\n")
+        case .threeStike:
+            print("\n>>정답입니다.\n>>처음화면으로 돌아갑니다.\n")
+        case .nothing:
+            print(">>Nothing\n")
+        }
+    }
 }

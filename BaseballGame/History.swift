@@ -86,26 +86,21 @@ extension History {
         trycount = 1
     }
     
-    func printAndHistory(type: HistoryCase, value1: Int = 0, value2: Int = 0) {
+    func addHistory(type: JugementCase, value1: Int = 0, value2: Int = 0) {
         switch type {
         case .answer:
             StrikAndBallHistory += "\n정답: \(value1)\n"
         case .userInput:
             StrikAndBallHistory += "\(value1)\n"
         case .onlyStrike:
-            print(">>\(value1)스트라이크!!\n")
             StrikAndBallHistory += ">>\(value1)스트라이크!!\n"
         case .onlyBall:
-            print(">>\(value1)볼!!\n")
             StrikAndBallHistory += ">>\(value1)볼!!\n"
         case .strikeAndBall:
-            print(">>\(value1)스트라이크!! \(value2)볼!!\n")
             StrikAndBallHistory += ">>\(value1)스트라이크!! \(value2)볼!!\n"
         case .threeStike:
-            print(">>3스트라이크!\n")
             StrikAndBallHistory += ">>3스트라이크!\n"
         case .nothing:
-            print(">>Nothing\n")
             StrikAndBallHistory += ">>Nothing\n"
         }
     }
@@ -113,15 +108,5 @@ extension History {
     func setHistory() {
         historyData.append(StrikAndBallHistory)
         StrikAndBallHistory = ""
-    }
-    
-    enum HistoryCase {
-        case answer
-        case userInput
-        case onlyStrike
-        case onlyBall
-        case strikeAndBall
-        case threeStike
-        case nothing
     }
 }
