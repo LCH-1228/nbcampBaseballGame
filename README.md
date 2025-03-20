@@ -1,5 +1,3 @@
-
-
 # Swift로 야구게임 만들기
 
 ## 1. Project Overview(프로젝트 개요)
@@ -33,15 +31,20 @@
 	- 게임 종료기능 구현(startGame 함수에 구현)
     - 안내문구에 표시된 입력 외 다른 입력 오류처리
 
+- 번외
+	- 게임기록 기능에 상세 이력 표시 기능 추가
+
 
 ## 3. Language
-- swift ( Xcode 16 )
+- Swift5 ( Xcode 16 )
 
 ## 4. Project Structure (프로젝트 구조)
 ```plaintext
 nbcampBaseballGame/
 ├── BaseballGame
+│   ├── CustomError.swift
 │   ├── History.swift
+│   ├── InputOutValue.swift
 │   ├── IntExtension.swift
 │   ├── PlayGame.swift
 │   └── main.swift
