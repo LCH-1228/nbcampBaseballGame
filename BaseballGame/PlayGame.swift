@@ -52,7 +52,7 @@ class PlayGame {
                     historyIntence.addHistory(type: .nothing)
                     historyIntence.addCount()
                 default:
-                    isPlaying = true
+                    continue
                 }
             } catch(let error) {
                 switch error as! CustomError.PlayGameError {
