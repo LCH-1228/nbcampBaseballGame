@@ -72,9 +72,13 @@ extension History {
         if index == 0 {
             isSeeing = false
         } else if index >= 1 && index <= historyData.count {
-            print("\n\n<\(index)번 게임 기록> \(historyData[index - 1])")
+            print("\n--------------------")
+            print("\n<\(index)번 게임 기록> \(historyData[index - 1])")
+            print("--------------------")
         } else {
+            print("--------------------")
             print("\n>>해당 게임번호가 없습니다.")
+            print("--------------------")
         }
     }
     
