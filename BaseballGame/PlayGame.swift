@@ -20,7 +20,8 @@ class PlayGame {
         var isPlaying = true
         //여기서 do를 지정하면 에러 처리시 while루프를 빠져나가 catch로 넘어가기에 try! 사용
         //try? 사용으로 nil 반환시에 대한 예외처리 필요.
-        let answer = try! makeRandomAnswer()
+        let testAnswer = try! makeRandomAnswer()
+        let answer = testAnswer[0] * 100 + testAnswer[1] * 10 + testAnswer[2]
         print("테스트를 위한 정답 표시 : \(answer)") // 테스트를 위한 정답 표시
         historyIntence.addHistory(type: .answer, value1: answer)
         while isPlaying {
@@ -72,25 +73,13 @@ class PlayGame {
 
 // 코드 가독성을 위해 extension으로 분리
 extension PlayGame {
-    func makeRandomAnswer() throws -> Int {
+    func makeRandomAnswer() throws -> [Int] {
         var answerArray: [Int] = [0, 1, 2, 3, 4, 5, 6 ,7 ,8 ,9] //숫자 선택을 위한 배열
-        var answer: Float = 0 // for문에서 pow 연산을 위해 Float로 지정
-        for i in 0...2 {
-            if let pickedNumber = answerArray.randomElement() { //랜덤한 배열값 1개 선택
-                if i == 2 && pickedNumber == 0 { //선택된 숫자 3자리중 맨앞에 0일 경우 실행
-                    answerArray.remove(at: answerArray.firstIndex(of: pickedNumber)!) //배열에서 0을 제거
-                    if let pickedNumber = answerArray.randomElement() { //0이 제거된 배열에서 랜덤한 배열 값 선택
-                        answer += pow(10.0, Float(i)) * Float(pickedNumber) //제곱연산인 pow를 이용하여 10^0, 10^1, 10^2를 자리값으로 사용하고 각각 선택된 숫자를 곱해서 3자리수 생성
-                    }
-                } else {
-                    answerArray.remove(at: answerArray.firstIndex(of: pickedNumber)!) //선택택된 랜덤한 배열 값 삭제
-                    answer += pow(10.0, Float(i)) * Float(pickedNumber) //제곱연산인 pow를 이용하여 10^0, 10^1, 10^2를 자리값으로 사용하고 각각 선택된 숫자를 곱해서 3자리수 생성
-                }
-            } else {
-                throw CustomError.PlayGameError.randomNumberGenerationError // 랜덤숫자 생성 오류시 예외처리
-            }
+        let answer = answerArray.shuffled()
+        guard answer[0] != 0 else {
+            return [Int](answer[1...3])
         }
-        return Int(answer)
+        return [Int](answer[0...2])
     }
     
     //사용자 입력 요청 메서드
