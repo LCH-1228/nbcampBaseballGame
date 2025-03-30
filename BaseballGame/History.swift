@@ -94,18 +94,18 @@ extension History {
     }
     
     //StrikAndBallHistory에 한라운드이 정답,사용자 입력, 스트라이크 볼 상세 이력을 String으로 저장하는 메서드
-    func addHistory(type: InputOutValue, value1: Int = 0, value2: Int = 0) {
+    func addHistory(type: InputOutValue, value1: [Int] = [Int](), value2: [Int] = [Int]()) {
         switch type {
         case .answer:
-            StrikAndBallHistory += "\n정답: \(value1)\n"
+            StrikAndBallHistory += "\n정답: \(value1.reduce(""){String($0) + String($1)})\n"
         case .userInput:
-            StrikAndBallHistory += "\(value1)\n"
+            StrikAndBallHistory += "\(value1.reduce(""){String($0) + String($1)})\n"
         case .onlyStrike:
-            StrikAndBallHistory += ">>\(value1)스트라이크!!\n"
+            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})스트라이크!!\n"
         case .onlyBall:
-            StrikAndBallHistory += ">>\(value1)볼!!\n"
+            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})볼!!\n"
         case .strikeAndBall:
-            StrikAndBallHistory += ">>\(value1)스트라이크!! \(value2)볼!!\n"
+            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})스트라이크!! \(value2.reduce(""){String($0) + String($1)})볼!!\n"
         case .threeStike:
             StrikAndBallHistory += ">>3스트라이크!\n"
         case .nothing:

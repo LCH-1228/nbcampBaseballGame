@@ -23,24 +23,24 @@ class PlayGame {
         //try? 사용으로 nil 반환시에 대한 예외처리 필요.
         let answer = try! makeRandomAnswer()
         print("테스트를 위한 정답 표시 : \(answer)") // 테스트를 위한 정답 표시
-//        historyIntence.addHistory(type: .answer, value1: answer)
+        historyIntence.addHistory(type: .answer, value1: answer)
         while isPlaying {
             do {
                 let userInput = try getUerIntput()
-//                historyIntence.addHistory(type: .userInput, value1: userInput)
+                historyIntence.addHistory(type: .userInput, value1: userInput)
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
                 switch strikeAndBallCount { //strikeAndBallCount 반환값은 튜플 (strike: Int, ball: Int)
                 case(0, 1...setGuesslength): //범위연산자로 case 지정
                     printMessage(type: .onlyBall, value1: strikeAndBallCount.1)
-                    historyIntence.addHistory(type: .onlyBall, value1: strikeAndBallCount.1)
+                    historyIntence.addHistory(type: .onlyBall, value1: [strikeAndBallCount.1])
                     historyIntence.addCount()
                 case(1..<setGuesslength, 0):
                     printMessage(type: .onlyStrike, value1: strikeAndBallCount.0)
-                    historyIntence.addHistory(type: .onlyStrike, value1: strikeAndBallCount.0)
+                    historyIntence.addHistory(type: .onlyStrike, value1: [strikeAndBallCount.0])
                     historyIntence.addCount()
                 case(1..<setGuesslength, 1..<setGuesslength):
                     printMessage(type: .strikeAndBall, value1: strikeAndBallCount.0, value2: strikeAndBallCount.1)
-                    historyIntence.addHistory(type: .strikeAndBall, value1: strikeAndBallCount.0, value2: strikeAndBallCount.1)
+                    historyIntence.addHistory(type: .strikeAndBall, value1: [strikeAndBallCount.0], value2: [strikeAndBallCount.1])
                     historyIntence.addCount()
                 case(setGuesslength, 0):
                     printMessage(type: .threeStike)
