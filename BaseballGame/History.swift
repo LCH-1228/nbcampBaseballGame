@@ -12,6 +12,7 @@ class History {
     private var trycount: Int = 1
     private var StrikAndBallHistory = ""
     var isSeeing = true
+    var guesslength = 3
     
     //History 실행 메서드
     func excute() {
@@ -93,23 +94,35 @@ extension History {
         trycount = 1 //배열에 값 저장 후 초기화
     }
     
-    //StrikAndBallHistory에 한라운드이 정답,사용자 입력, 스트라이크 볼 상세 이력을 String으로 저장하는 메서드
-    func addHistory(type: InputOutValue, value1: [Int] = [Int](), value2: [Int] = [Int]()) {
-        switch type {
-        case .answer:
-            StrikAndBallHistory += "\n정답: \(value1.reduce(""){String($0) + String($1)})\n"
-        case .userInput:
-            StrikAndBallHistory += "\(value1.reduce(""){String($0) + String($1)})\n"
-        case .onlyStrike:
-            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})스트라이크!!\n"
-        case .onlyBall:
-            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})볼!!\n"
-        case .strikeAndBall:
-            StrikAndBallHistory += ">>\(value1.reduce(""){String($0) + String($1)})스트라이크!! \(value2.reduce(""){String($0) + String($1)})볼!!\n"
-        case .threeStike:
+    //StrikAndBallHistory에 한라운드 정답을 String으로 저장하는 메서드
+    func collectAnswer(answer: [Int]) {
+        StrikAndBallHistory += "\n정답: \(answer.reduce(""){String($0) + String($1)})\n"
+    }
+    
+    //StrikAndBallHistory에 한라운드 사용자 입력을 String으로 저장하는 메서드
+    func collectUserInput(userInput: [Int]) {
+        StrikAndBallHistory += "\(userInput.reduce(""){String($0) + String($1)})\n"
+    }
+    
+    //StrikAndBallHistory에 한라운드 스트라이크 볼 상세 이력을 String으로 저장하는 메서드
+    func collectDetermineStrikeAndBall(resultOfDetermination: (strike: Int, ball: Int)) {
+        switch resultOfDetermination {
+        case(0, 1...guesslength):
+            StrikAndBallHistory += ">>\(resultOfDetermination.1)볼!!\n"
+            trycount += 1
+        case(1..<guesslength, 0):
+            StrikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!!\n"
+            trycount += 1
+        case(1..<guesslength, 1..<guesslength):
+            StrikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!! \(resultOfDetermination.1)볼!!\n"
+            trycount += 1
+        case(guesslength, 0):
             StrikAndBallHistory += ">>3스트라이크!\n"
-        case .nothing:
+        case(0,0):
             StrikAndBallHistory += ">>Nothing\n"
+            trycount += 1
+        default:
+            return
         }
     }
     
@@ -117,5 +130,9 @@ extension History {
     func setHistory() {
         historyData.append(StrikAndBallHistory)
         StrikAndBallHistory = "" //배열에 값 저장 후 초기화
+    }
+    
+    func setGuesslength(value: Int) {
+        guesslength = value
     }
 }
