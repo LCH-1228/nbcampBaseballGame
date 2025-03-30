@@ -26,7 +26,8 @@ class PlayGame {
         historyIntence.addHistory(type: .answer, value1: answer)
         while isPlaying {
             do {
-                let userInput = try getUerIntput()
+                let testuserInput = try getUerIntput()
+                let userInput = testuserInput[0] * 100 + testuserInput[1] * 10 + testuserInput[2]
                 historyIntence.addHistory(type: .userInput, value1: userInput)
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput)
                 switch strikeAndBallCount { //strikeAndBallCount 반환값은 튜플 (strike: Int, ball: Int)
@@ -61,8 +62,12 @@ class PlayGame {
                     print(">>랜덤숫자 생성에 실패했습니다.")
                 case .invaildInput:
                     print(">>숫자가 아닌 다른 문자를 입력하셨거나, 입력이 없습니다.\n")
-                case .inputValueNotMatchRule:
-                    print(">>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 3자리 숫자를 입력하세요\n>>숫자는 0으로 시작할 수 없습니다.\n")
+                case .inputNumbersStartedNotMatchRule:
+                    print(">>조건에 맞지 않는 입력입니다.\n>>숫자는 0으로 시작할 수 없습니다.\n")
+                case .inputNumbersCountNotMatchRule:
+                    print(">>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 3자리 숫자를 입력하세요\n")
+                case .inputNumberDuplicationNotMatchRule:
+                    print(">>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 숫자를 입력하세요\n")
                 case .determineStrikeAndBallInputError:
                     print("판단실패")
                 }
@@ -83,15 +88,14 @@ extension PlayGame {
     }
     
     //사용자 입력 요청 메서드
-    func getUerIntput() throws -> Int {
-        if let userInput = readLine(), let userInputNumber = Int(userInput) {
-            guard userInputNumber.isFit() else {
-                throw CustomError.PlayGameError.inputValueNotMatchRule //사용자 입력이 규칙에 맞지 않을때 예외 처리
-            }
-            return userInputNumber
-        } else {
-            throw CustomError.PlayGameError.invaildInput //사용자 입력이 올바르지 않을때 예외 처리
-        }
+    func getUerIntput() throws -> [Int] {
+        let userInput = readLine() ?? ""
+        let numberArray = userInput.map { String($0) }.compactMap { Int($0) }
+        guard !numberArray.isEmpty else { throw CustomError.PlayGameError.invaildInput } //사용자 입력이 올바르지 않을때 예외 처리
+        guard numberArray[0] != 0 else { throw CustomError.PlayGameError.inputNumbersStartedNotMatchRule } //사용자 입력이 0으로 시작할때 예외 처리
+        guard numberArray.count == 3 else { throw CustomError.PlayGameError.inputNumbersCountNotMatchRule } //사용자 입력 숫자가 3개가 아닐때 예외 처리
+        guard numberArray.count == Set(numberArray).count else { throw CustomError.PlayGameError.inputNumberDuplicationNotMatchRule } //사용자 입력에 중복된 숫자가 있을때 예외 처리
+        return numberArray
     }
     
     //스트라이크 볼 판단 메서드

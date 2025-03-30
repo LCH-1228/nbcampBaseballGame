@@ -10,7 +10,9 @@ class CustomError {
     enum PlayGameError: Error {
         case randomNumberGenerationError
         case invaildInput
-        case inputValueNotMatchRule
+        case inputNumbersStartedNotMatchRule
+        case inputNumbersCountNotMatchRule
+        case inputNumberDuplicationNotMatchRule
         case determineStrikeAndBallInputError
     }
 
