@@ -9,7 +9,7 @@ import Foundation
 class PlayGame {
     
     var historyIntence: History //의존성 주입을 받기 위한 변수선언과 init
-    let setGuesslength = 3
+    var setGuesslength = 3
     
     init(historyIntence: History) {
         self.historyIntence = historyIntence

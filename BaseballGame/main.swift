@@ -14,7 +14,7 @@ func startGame() {
     while !exitGame {
         print("""
                 >>환영합니다! 원하시는 번호를 입력해주세요
-                >>1. 게임 시작하기 2. 게임 기록 보기 3. 설명보기 4. 종료하기
+                >>1. 게임 시작하기 2. 게임 기록 보기 3. 설명보기 4.게임설정 5. 종료하기
                 """)
         if let userInput = readLine(), let userInputNumber = Int(userInput) {
             switch userInputNumber { //사용자 입력에 따라 다른 동작 실행
@@ -40,6 +40,12 @@ func startGame() {
                         
                         """)
             case 4:
+                print(">>현재 야구게임 자리수 : \(game.setGuesslength)")
+                print(">>변경할 야구게임의 자리수를 입력해주세요")
+                if let userInput = readLine(), let userInputNumber = Int(userInput) {
+                    game.setGuesslength = userInputNumber
+                }
+            case 5:
                 print(">>숫자 야구 게임을 종료합니다.")
                 exitGame = true // 전체 반복문 종료
             default:
