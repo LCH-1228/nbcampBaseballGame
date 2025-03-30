@@ -51,7 +51,7 @@ class PlayGame {
                 case .inputNumberDuplicationNotMatchRule:
                     print(">>조건에 맞지 않는 입력입니다.\n>>0부터 9까지 중에 서로 다른 숫자를 입력하세요\n")
                 case .determineStrikeAndBallInputError:
-                    print("판단실패")
+                    print(">>스트라이크 볼 판단을 실패했습니다.\n")
                 }
             }
         }
@@ -94,6 +94,8 @@ extension PlayGame {
             
         }
         ball -= strike
+        guard strike >= 0 else { throw CustomError.PlayGameError.determineStrikeAndBallInputError }
+        guard ball >= 0 else { throw CustomError.PlayGameError.determineStrikeAndBallInputError }
         return (strike, ball)
     }
     
