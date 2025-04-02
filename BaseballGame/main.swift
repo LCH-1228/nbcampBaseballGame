@@ -22,7 +22,7 @@ func startGame() {
                 game.excute() // 야구게임 실행
             case 2:
                 history.excute() //게임 기록 보기 실행
-            case 3:
+            case 3: //게일 설명
                 print("""
                         
                         [숫자야구게임]
@@ -39,22 +39,22 @@ func startGame() {
                         랜덤한 숫자를 맞춰보세요.
                         
                         """)
-            case 4:
+            case 4: //야구게임 자리수 설정
                 print(">>현재 야구게임 자리수 : \(game.guesslength)")
                 print(">>변경할 야구게임의 자리수(1~9)를 입력해주세요.\n>>뒤로 돌아가시려면 엔터를 입력하세요.")
                 if let userInput = readLine(), let userInputNumber = Int(userInput) {
-                    guard userInputNumber >= 1 && userInputNumber <= 9 else {
+                    guard userInputNumber >= 1 && userInputNumber <= 9 else { //사용자 입력 예외처리
                         print(">>잘못된 입력으로 뒤로 돌아갑니다.\n")
                         continue
                     }
-                    game.guesslength = userInputNumber
-                    history.setGuesslength(value: userInputNumber)
+                    game.guesslength = userInputNumber //입력값으로 guesslength 업데이트
+                    history.setGuesslength(value: userInputNumber) // 스트라이크 볼 판단 게임 기록을 위해 history 인스턴스의 guesslength도 없데이트
                 }
             case 5:
                 print(">>숫자 야구 게임을 종료합니다.")
                 exitGame = true // 전체 반복문 종료
             default:
-                continue
+                continue // 기타 입력시 동작
             }
         } else {
             print(">>잘못된 입력입니다.\n")
