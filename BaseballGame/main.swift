@@ -41,8 +41,12 @@ func startGame() {
                         """)
             case 4:
                 print(">>현재 야구게임 자리수 : \(game.guesslength)")
-                print(">>변경할 야구게임의 자리수를 입력해주세요")
+                print(">>변경할 야구게임의 자리수(1~9)를 입력해주세요.\n>>뒤로 돌아가시려면 엔터를 입력하세요.")
                 if let userInput = readLine(), let userInputNumber = Int(userInput) {
+                    guard userInputNumber >= 1 && userInputNumber <= 9 else {
+                        print(">>잘못된 입력으로 뒤로 돌아갑니다.\n")
+                        continue
+                    }
                     game.guesslength = userInputNumber
                     history.setGuesslength(value: userInputNumber)
                 }
