@@ -1,3 +1,4 @@
+
 # Swift로 야구게임 만들기
 
 ## 1. Project Overview(프로젝트 개요)
@@ -33,27 +34,52 @@
 
 - 번외
 	- 게임기록 기능에 상세 이력 표시 기능 추가
+    - 게임 자릿수 설정 기능 추가(기본값: 3)
 
+## 3. 게임방법
+1. 게임메뉴에서 원하는 기능 선택
+![게임메뉴](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/메뉴.png?raw=true)
+2. 게임 진행
+![게임 화면](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%EC%8B%9C%EC%9E%91.png?raw=true)
+3. 숫자를 입력하여 정답 맞혀보기
+#### 추가 기능
+- 게임 설명 보기(게임 메뉴에서 1입력)
+![enter image description here](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%20%EC%84%A4%EB%AA%85.png?raw=true)
+- 게임 기록보기(게임 메뉴에서 2입력)
+![enter image description here](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%EA%B8%B0%EB%A1%9D%EB%B3%B4%EA%B8%B0.png?raw=true)
+- 게임기록 상세보기(게임 기록보기에서 확인할 게임 번호 입력)
+![enter image description here](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%EA%B8%B0%EB%A1%9D%20%EC%83%81%EC%84%B8%EB%B3%B4%EA%B8%B0.png?raw=true)
+- 게임 난이도 설정(게임 메뉴에서 4 입력)
+![enter image description here](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%20%EB%82%9C%EC%9D%B4%EB%8F%84%20%EC%84%A4%EC%A0%95.png?raw=true)
+- 게임 난이도 설정 후 게임 플레이시
+![enter image description here](https://github.com/LCH-1228/nbcampBaseballGame/blob/develop/SampleImage/%EA%B2%8C%EC%9E%84%20%EB%82%9C%EC%9D%B4%EB%8F%84%20%EB%B3%80%EA%B2%BD%EC%8B%9C%20%EA%B2%8C%EC%9E%84%20%ED%94%8C%EB%A0%88%EC%9D%B4.png?raw=true)
 
-## 3. Language
+## 4. Language
 - Swift5 ( Xcode 16 )
 
-## 4. Project Structure (프로젝트 구조)
+## 5. Project Structure (프로젝트 구조)
 ```plaintext
 nbcampBaseballGame/
+nbcampBaseballGame/
 ├── BaseballGame
-│   ├── CustomError.swift
-│   ├── History.swift
-│   ├── InputOutValue.swift
-│   ├── IntExtension.swift
-│   ├── PlayGame.swift
-│   └── main.swift
+│   ├── CustomError.swift
+│   ├── History.swift
+│   ├── main.swift
+│   └── PlayGame.swift
 ├── BaseballGame.xcodeproj
-│   ├── project.pbxproj
-│   └── project.xcworkspace
-│       ├── contents.xcworkspacedata
-│       └── xcshareddata
-│           └── swiftpm
-│               └── configuration
-└── README.md
+│   ├── project.pbxproj
+│   └── project.xcworkspace
+│       ├── contents.xcworkspacedata
+│       └── xcshareddata
+│           └── swiftpm
+│               └── configuration
+├── README.md
+└── SampleImage
+    ├── 게임 난이도 변경시 게임 플레이.png
+    ├── 게임 난이도 설정.png
+    ├── 게임 설명.png
+    ├── 게임기록 상세보기.png
+    ├── 게임기록보기.png
+    ├── 게임시작.png
+    └── 메뉴.png
 ```
