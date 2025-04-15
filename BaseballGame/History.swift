@@ -10,7 +10,7 @@ class History {
     private var countData: [Int] = [] //전체 게임에서 라운드당 시도횟수가 저장된 변수
     private var historyData: [String] = [] // 전체 게임에서 라운드당 게임기록이 저장된 변수
     private var trycount: Int = 1 // 라운드당 시도횟수 변수
-    private var StrikAndBallHistory = "" // 라운드당 게임기록 변수
+    private var strikAndBallHistory = "" // 라운드당 게임기록 변수
     var isSeeing = true //게임 기록 확인 중 true
     var guesslength = 3 //게임 자릿수 설정 변수
     
@@ -96,30 +96,30 @@ extension History {
     
     //StrikAndBallHistory에 한라운드 정답을 String으로 저장하는 메서드
     func collectAnswer(answer: [Int]) {
-        StrikAndBallHistory += "\n정답: \(answer.reduce(""){String($0) + String($1)})\n"
+        strikAndBallHistory += "\n정답: \(answer.reduce(""){String($0) + String($1)})\n"
     }
     
     //StrikAndBallHistory에 한라운드 사용자 입력을 String으로 저장하는 메서드
     func collectUserInput(userInput: [Int]) {
-        StrikAndBallHistory += "\(userInput.reduce(""){String($0) + String($1)})\n"
+        strikAndBallHistory += "\(userInput.reduce(""){String($0) + String($1)})\n"
     }
     
     //StrikAndBallHistory에 한라운드 스트라이크 볼 상세 이력을 String으로 저장하는 메서드
     func collectDetermineStrikeAndBall(resultOfDetermination: (strike: Int, ball: Int)) {
         switch resultOfDetermination {
         case(0, 1...guesslength):
-            StrikAndBallHistory += ">>\(resultOfDetermination.1)볼!!\n"
+            strikAndBallHistory += ">>\(resultOfDetermination.1)볼!!\n"
             trycount += 1
         case(1..<guesslength, 0):
-            StrikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!!\n"
+            strikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!!\n"
             trycount += 1
         case(1..<guesslength, 1..<guesslength):
-            StrikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!! \(resultOfDetermination.1)볼!!\n"
+            strikAndBallHistory += ">>\(resultOfDetermination.0)스트라이크!! \(resultOfDetermination.1)볼!!\n"
             trycount += 1
         case(guesslength, 0):
-            StrikAndBallHistory += ">>3스트라이크!\n"
+            strikAndBallHistory += ">>3스트라이크!\n"
         case(0,0):
-            StrikAndBallHistory += ">>Nothing\n"
+            strikAndBallHistory += ">>Nothing\n"
             trycount += 1
         default:
             return
@@ -128,8 +128,8 @@ extension History {
     
     //상세이력을 배열에 저장하는 메서드
     func setHistory() {
-        historyData.append(StrikAndBallHistory) // 스트라이크 볼 이력을 historyData에 저장
-        StrikAndBallHistory = "" //배열에 값 저장 후 초기화
+        historyData.append(strikAndBallHistory) // 스트라이크 볼 이력을 historyData에 저장
+        strikAndBallHistory = "" //배열에 값 저장 후 초기화
     }
     
     //게임 자릿수 변경 메서드

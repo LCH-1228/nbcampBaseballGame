@@ -29,12 +29,12 @@ class PlayGame {
                 
                 let strikeAndBallCount = try determineStrikeAndBall(answer, userInput) // 스트라이크 볼 판단
                 
-                //스트라이크 볼 판단을 history인스턴스의 StrikAndBallHistory 문자열에 임시 저장
+                //스트라이크 볼 판단을 history인스턴스의 strikAndBallHistory 문자열에 임시 저장
                 historyIntence.collectDetermineStrikeAndBall(resultOfDetermination: strikeAndBallCount)
                 printMessage(resultOfDetermination: strikeAndBallCount) // 스트라이크 볼 판단 메세지 출력
                 
                 if strikeAndBallCount.0 == guesslength { //스트라이크 갯수가 설정한 guesslenght와 일치하면 정답 처리
-                    historyIntence.setHistory() //history인스턴스의 StrikAndBallHistory 문자열을 historyData에 String 배열로 저장
+                    historyIntence.setHistory() //history인스턴스의 strikAndBallHistory 문자열을 historyData에 String 배열로 저장
                     historyIntence.setCount() //history인스턴스의 trycount Int를 countData에 Int 배열로 저장
                     isPlaying = false
                 }
